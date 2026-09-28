@@ -1,0 +1,49 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 1px solid #ded7f6;
+  border-radius: var(--radius-pill);
+  background: #f4f1fe;
+  color: var(--onboarding-purple);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.chip:hover {
+  background: #e9e2fc;
+}
+
+.chip:focus-visible,
+.clear:focus-visible {
+  outline: 3px solid rgba(109, 63, 199, 0.32);
+  outline-offset: 2px;
+}
+
+.clear {
+  padding: 7px 12px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: #6f6f7d;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--onboarding-text);
+}

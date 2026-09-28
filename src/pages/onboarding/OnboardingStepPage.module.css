@@ -1,0 +1,20 @@
+.formBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form[data-field-kind="photo"] {
+  max-width: 420px;
+  align-items: center;
+  gap: var(--space-md);
+}

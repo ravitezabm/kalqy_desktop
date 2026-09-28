@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.row[data-status="connected"] .text,
+.row[data-status="completed"] .text {
+  color: #3aa86d;
+}
+
+.row[data-status="expired"] .text {
+  color: #e0455f;
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-yellow);
+  flex-shrink: 0;
+}
+
+.checkIcon {
+  flex-shrink: 0;
+}

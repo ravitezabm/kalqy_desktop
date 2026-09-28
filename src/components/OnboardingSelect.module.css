@@ -1,0 +1,63 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.labelHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shell {
+  position: relative;
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+  appearance: none;
+  padding: 15px 44px 15px 18px;
+  border-radius: 14px;
+  border: 1.5px solid #e4e4e8;
+  background: #ffffff;
+  color: var(--onboarding-text);
+  font-size: 15px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.select:hover {
+  border-color: #cfcfd6;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--onboarding-purple);
+  box-shadow: 0 0 0 4px rgba(109, 63, 199, 0.12);
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: var(--onboarding-muted);
+  pointer-events: none;
+}

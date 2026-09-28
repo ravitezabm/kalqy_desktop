@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #e3e3e3;
+  transition: background-color 0.3s ease;
+}
+
+.dot[data-active="true"] {
+  background: var(--onboarding-purple);
+}

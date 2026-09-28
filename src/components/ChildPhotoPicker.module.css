@@ -1,0 +1,153 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.uploadTile,
+.uploadedTile,
+.avatarTile {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.uploadTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: #ffffff;
+  border: 1.5px dashed #7fb1f0;
+}
+
+.uploadTile:hover {
+  border-color: #4f8ef7;
+}
+
+.uploadTile:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.plusCircle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(79, 142, 247, 0.12);
+  color: #4f8ef7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.uploadLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #4f8ef7;
+  text-align: center;
+  padding: 0 4px;
+}
+
+.uploadedTile {
+  border: 1.5px solid #e4e4e8;
+  background: #ffffff;
+}
+
+.uploadedImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.changeBadge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 4px 0;
+  background: rgba(31, 32, 35, 0.65);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.avatarTile {
+  border: 2px solid transparent;
+  background: #f4f2fa;
+}
+
+.avatarTile[data-selected="true"] {
+  border-color: var(--onboarding-purple);
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.checkBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--onboarding-purple);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadTile:focus-visible,
+.uploadedTile:focus-visible,
+.avatarTile:focus-visible {
+  outline: 3px solid rgba(109, 63, 199, 0.3);
+  outline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e0455f;
+}
+
+@media (max-width: 420px) {
+  .row {
+    gap: 10px;
+  }
+
+  .uploadTile,
+  .uploadedTile,
+  .avatarTile {
+    width: 74px;
+    height: 74px;
+  }
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="24" fill="#ECEFF4"/>
+  <circle cx="100" cy="80" r="34" fill="#F2C79A"/>
+  <clipPath id="avatar3Body">
+    <path d="M50 190c0-38 22-58 50-58s50 20 50 58"/>
+  </clipPath>
+  <path d="M50 190c0-38 22-58 50-58s50 20 50 58" fill="#3AA0C4"/>
+  <g clip-path="url(#avatar3Body)">
+    <rect x="40" y="132" width="120" height="12" fill="#ffffff"/>
+    <rect x="40" y="156" width="120" height="12" fill="#ffffff"/>
+    <rect x="40" y="180" width="120" height="12" fill="#ffffff"/>
+  </g>
+</svg>

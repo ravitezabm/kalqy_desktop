@@ -1,0 +1,26 @@
+.wrap {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  background: #f4f2fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--onboarding-muted);
+}

@@ -1,0 +1,73 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #ffffff;
+  border: 1px solid #f0f0f5;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(31, 32, 35, 0.04);
+}
+
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.iconSlot[data-icon="games"] {
+  background: #efe9fd;
+  color: #6d3fc7;
+}
+
+.iconSlot[data-icon="progress"] {
+  background: #fdf3d8;
+  color: #d9a441;
+}
+
+.iconSlot[data-icon="achievements"] {
+  background: #e4f6ea;
+  color: #2f9e5f;
+}
+
+.iconSlot[data-icon="playTime"] {
+  background: #fde8f1;
+  color: #ec1e79;
+}
+
+.body {
+  min-width: 0;
+}
+
+.label {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6f6f7d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+}
+
+.value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--onboarding-text);
+}
+
+.change {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f9e5f;
+}

@@ -1,0 +1,68 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  background: linear-gradient(115deg, #6d3fc7 0%, #7b45d8 45%, #8b5cf6 100%);
+  border-radius: 20px;
+  color: #ffffff;
+  flex-wrap: wrap;
+}
+
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.16);
+  flex-shrink: 0;
+}
+
+.text {
+  flex: 1;
+  min-width: 220px;
+}
+
+.title {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.4;
+}
+
+.button {
+  flex-shrink: 0;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--onboarding-purple);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.button:hover {
+  background: #f5f2fe;
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}

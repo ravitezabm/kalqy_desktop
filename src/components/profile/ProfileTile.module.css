@@ -1,0 +1,82 @@
+.tile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.avatarSlot {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.imageWrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(31, 32, 35, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.name {
+  font-size: clamp(10px, 1.1vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #4a4a52;
+  white-space: nowrap;
+}
+
+.tile[data-center="true"] .name {
+  font-size: clamp(13px, 1.4vw, 17px);
+  letter-spacing: 0.18em;
+  color: #26262c;
+}
+
+.tile[data-center="true"] .avatarSlot::before,
+.tile[data-center="true"] .avatarSlot::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.tile[data-center="true"] .avatarSlot::before {
+  inset: -11%;
+  background: #f4f4f7;
+}
+
+.tile[data-center="true"] .avatarSlot::after {
+  inset: -22%;
+  background: #fafafc;
+}
+
+.tile:hover .imageWrap {
+  transform: scale(1.03);
+  box-shadow: 0 10px 26px rgba(31, 32, 35, 0.14);
+}
+
+.tile:focus-visible {
+  outline: none;
+}
+
+.tile:focus-visible .imageWrap {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 6px #2f6fed;
+}

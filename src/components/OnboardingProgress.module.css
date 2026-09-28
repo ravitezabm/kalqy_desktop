@@ -1,0 +1,27 @@
+.track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.track[data-orientation="vertical"] {
+  flex-direction: column;
+}
+
+.track[data-orientation="horizontal"] {
+  flex-direction: row;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e2e0e8;
+  flex-shrink: 0;
+}
+
+.dot[data-active="true"] {
+  width: 10px;
+  height: 10px;
+  background: var(--onboarding-purple);
+}

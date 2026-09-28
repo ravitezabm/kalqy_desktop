@@ -1,0 +1,52 @@
+.icon {
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #9b7cf0 0%, #6d3fc7 65%, #5f34b8 100%);
+  box-shadow: 0 10px 24px rgba(93, 55, 190, 0.28), inset 0 0 0 4px rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.k {
+  font-size: 44%;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--color-yellow) 0%, var(--color-green) 50%, var(--color-pink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.starTop,
+.starBottom,
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.85;
+}
+
+.starTop {
+  width: 10%;
+  height: 10%;
+  top: 12%;
+  right: 14%;
+}
+
+.starBottom {
+  width: 7%;
+  height: 7%;
+  bottom: 18%;
+  left: 16%;
+  opacity: 0.6;
+}
+
+.dot {
+  width: 5%;
+  height: 5%;
+  bottom: 30%;
+  right: 20%;
+  opacity: 0.5;
+}

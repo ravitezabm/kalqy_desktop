@@ -1,0 +1,207 @@
+.card {
+  min-width: 0;
+}
+
+.surface {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 20px;
+  background: var(--card-accent);
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card[data-variant="compact"] .surface {
+  aspect-ratio: 3 / 4.15;
+  padding: 18px;
+}
+
+.card[data-variant="library"] .surface {
+  aspect-ratio: 1 / 1.17;
+}
+
+.surface:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(31, 32, 35, 0.18);
+}
+
+.surface:active {
+  transform: translateY(-1px) scale(0.985);
+}
+
+.surface:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.surface:focus-visible {
+  outline: 3px solid rgba(109, 63, 199, 0.55);
+  outline-offset: 3px;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.image,
+.imageFallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.22s ease;
+}
+
+.imageFallback {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), transparent);
+}
+
+.surface:hover .image {
+  transform: scale(1.04);
+}
+
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.02) 34%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+}
+
+.compactTop,
+.playButton,
+.bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.compactTop {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.88;
+}
+
+.playButton {
+  position: absolute;
+  right: 16px;
+  bottom: 74px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--card-accent);
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.card[data-variant="compact"] .playButton {
+  bottom: 62px;
+}
+
+.surface:hover .playButton {
+  transform: scale(1.1);
+  background: #ffffff;
+}
+
+.bottom {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge,
+.badgeMore {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: none;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badgeMore {
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.badgeMore:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.level {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.42);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.progressTrack {
+  flex: 1;
+  min-width: 30px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.34);
+  overflow: hidden;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: #8ee06a;
+  transition: width 0.3s ease;
+}
+
+.progressValue {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}

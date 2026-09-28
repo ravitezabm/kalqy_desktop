@@ -1,0 +1,94 @@
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  background: var(--color-bg);
+  padding: var(--space-lg);
+}
+
+.topBar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: var(--space-lg);
+}
+
+.centerColumn {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.header {
+  text-align: center;
+  max-width: 640px;
+}
+
+.heading {
+  margin: 0 0 16px;
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.pink {
+  color: var(--color-pink);
+}
+
+.description {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.infoSlot {
+  width: 100%;
+}
+
+.devPanel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px dashed #d8d8dd;
+  background: #fafafa;
+}
+
+.devLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.devButton {
+  border: 1px solid #d8d8dd;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.devButton:hover {
+  background: #f3f3f5;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: var(--space-md) var(--space-sm);
+  }
+}

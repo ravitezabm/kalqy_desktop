@@ -1,0 +1,25 @@
+.skeleton {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: clamp(108px, 11.5vw, 190px);
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0.35) 30%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.35) 70%);
+  background-size: 220% 100%;
+  animation: shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 140% 0;
+  }
+  to {
+    background-position: -40% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

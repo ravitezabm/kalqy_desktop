@@ -1,0 +1,17 @@
+.logo {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  line-height: 1;
+  user-select: none;
+}
+
+.letter {
+  font-size: var(--logo-font-size);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.logo[data-size="md"] {
+  --logo-font-size: clamp(32px, 5vw, 56px);
+}

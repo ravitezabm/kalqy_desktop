@@ -1,0 +1,112 @@
+.page {
+  --stage-offset: 140px;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.blobPink {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 340px;
+  height: 260px;
+  background: linear-gradient(135deg, #ec1e79, #b8125a);
+  border-radius: 0 0 200px 0;
+  pointer-events: none;
+}
+
+.blobPurple {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 340px;
+  height: 260px;
+  background: linear-gradient(225deg, #6d3fc7, #4a2a99);
+  border-radius: 0 0 0 200px;
+  pointer-events: none;
+}
+
+.topBar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding-top: 36px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #4a4a52;
+  text-align: center;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: calc(100vh - var(--stage-offset));
+  min-height: 520px;
+  /* Lets the orbit run off the bottom edge instead of shrinking to fit. */
+  overflow: hidden;
+}
+
+/* A square field, so the orbit stays a true circle instead of stretching
+   into an ellipse on wide windows. It is deliberately taller than the stage
+   and anchored low, so the bottom of the ring is cropped by the window —
+   the outer profiles only occupy the top arc, so nobody is cut off. */
+.orbitField {
+  --field-size: min(calc((100vh - var(--stage-offset)) * 1.18), 94vw);
+  position: absolute;
+  left: 50%;
+  top: 64%;
+  transform: translate(-50%, -50%);
+  width: var(--field-size);
+  height: var(--field-size);
+}
+
+/* The orbit path the profiles travel along — decorative only. */
+.orbitRingOuter,
+.orbitRingInner {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orbitRingOuter {
+  background: #fafafa;
+  border: 1px solid rgba(31, 32, 35, 0.045);
+}
+
+.orbitRingInner {
+  background: #f5f5f6;
+  border: 1px solid rgba(31, 32, 35, 0.05);
+}
+
+@media (max-width: 900px) {
+  .page {
+    --stage-offset: 120px;
+  }
+
+  .stage {
+    min-height: 460px;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+}
+
+@media (max-height: 700px) {
+  .topBar {
+    padding-top: 20px;
+  }
+}

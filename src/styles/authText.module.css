@@ -1,0 +1,35 @@
+.tagline {
+  margin: var(--space-sm) 0 var(--space-lg);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.heading {
+  margin: 0 0 4px;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  margin: 0 0 var(--space-md);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.badgeSlot {
+  margin-top: var(--space-lg);
+}
+
+@media (max-width: 1024px) {
+  .badgeSlot {
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-height: 700px) {
+  .tagline {
+    margin-bottom: var(--space-md);
+  }
+}

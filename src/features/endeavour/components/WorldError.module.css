@@ -1,0 +1,41 @@
+.error {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--onboarding-text);
+}
+
+.button {
+  margin-top: 4px;
+  padding: 11px 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--onboarding-purple);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--onboarding-purple-dark);
+}
+
+.button:focus-visible {
+  outline: 3px solid rgba(109, 63, 199, 0.32);
+  outline-offset: 2px;
+}
