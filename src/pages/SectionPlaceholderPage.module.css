@@ -52,6 +52,24 @@
   color: var(--onboarding-muted);
 }
 
+.contactLink {
+  margin: -4px 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--onboarding-purple);
+  text-decoration: underline;
+}
+
+.contactLink:hover {
+  color: var(--onboarding-purple-dark);
+}
+
+.contactLink:focus-visible {
+  outline: 3px solid rgba(109, 63, 199, 0.35);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .backButton {
   padding: 11px 24px;
   border: none;

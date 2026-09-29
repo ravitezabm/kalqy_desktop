@@ -7,8 +7,11 @@ import { DashboardHeader } from "../features/dashboard/components/DashboardHeade
 import { HeroBanner } from "../features/dashboard/components/HeroBanner";
 import { StatsGrid } from "../features/dashboard/components/StatsGrid";
 import { GameGrid } from "../features/games/components/GameGrid";
+import { ChallengeBoard } from "../features/dashboard/components/ChallengeBoard";
 import { DailyChallengeCard } from "../features/dashboard/components/DailyChallengeCard";
 import { DashboardSkeleton } from "../features/dashboard/components/DashboardSkeleton";
+import { DecorativeBackground } from "../features/dashboard/components/DecorativeBackground";
+import { BottomEnvironment } from "../features/dashboard/components/BottomEnvironment";
 import { useDashboard } from "../features/dashboard/hooks/useDashboard";
 import { useDashboardSearch } from "../features/dashboard/hooks/useDashboardSearch";
 import { launchGame, launchGameById } from "../features/games/services/gameLaunchService";
@@ -76,8 +79,10 @@ export function HomePage() {
   );
 
   return (
-    <AppShell profile={profile} unreadNotifications={2}>
+    <AppShell profile={profile} bottomDecoration={<BottomEnvironment />}>
       <div className={styles.page}>
+        <DecorativeBackground />
+
         <DashboardHeader
           profile={profile}
           search={search}
@@ -129,10 +134,12 @@ export function HomePage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.28, delay: reduceMotion ? 0 : 0.18, ease: "easeOut" }}
                   >
-                    <DailyChallengeCard
-                      challenge={data.dailyChallenge}
-                      onPlay={handlePlayChallenge}
-                    />
+                    <ChallengeBoard title="Daily Challenge">
+                      <DailyChallengeCard
+                        challenge={data.dailyChallenge}
+                        onPlay={handlePlayChallenge}
+                      />
+                    </ChallengeBoard>
                   </motion.div>
                 )}
               </div>

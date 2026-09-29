@@ -1,0 +1,9 @@
+/* Decorative display font, used only for the Home hero headline — the rest
+   of the app keeps --font-family-base. See tokens.css --font-hero. */
+@font-face {
+  font-family: "Ewofi";
+  src: url("/fonts/Ewofi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

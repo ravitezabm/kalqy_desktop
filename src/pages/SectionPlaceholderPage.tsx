@@ -43,6 +43,11 @@ export function SectionPlaceholderPage({ config }: { config: SectionConfig }) {
             </p>
           )}
           <p className={styles.description}>{config.description}</p>
+          {config.contactEmail && (
+            <a className={styles.contactLink} href={`mailto:${config.contactEmail}`}>
+              {config.contactEmail}
+            </a>
+          )}
           <button type="button" className={styles.backButton} onClick={() => navigate("/home")}>
             Back to Home
           </button>

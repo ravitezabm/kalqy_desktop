@@ -8,6 +8,7 @@ interface DailyChallengeCardProps {
   onPlay: (challenge: DailyChallenge) => void;
 }
 
+/** Renders inside <ChallengeBoard> — no background/frame of its own. */
 export function DailyChallengeCard({ challenge, onPlay }: DailyChallengeCardProps) {
   const countdown = useCountdown(challenge.expiresAt);
 
@@ -16,20 +17,17 @@ export function DailyChallengeCard({ challenge, onPlay }: DailyChallengeCardProp
   const percent = Math.round((progress / target) * 100);
 
   return (
-    <section className={styles.card} aria-labelledby="daily-challenge-title">
+    <section className={styles.card} aria-label="Daily Challenge">
       <header className={styles.header}>
-        <h3 className={styles.title} id="daily-challenge-title">
-          Daily Challenge
-        </h3>
         <span className={styles.timer} data-expired={countdown.expired}>
-          <Clock size={14} strokeWidth={2} aria-hidden="true" />
+          <Clock size={12} strokeWidth={2.2} aria-hidden="true" />
           <span aria-live="off">{countdown.expired ? "Expired" : countdown.label}</span>
         </span>
       </header>
 
       <div className={styles.body}>
         <span className={styles.trophy} aria-hidden="true">
-          <Trophy size={26} strokeWidth={1.8} />
+          <Trophy size={18} strokeWidth={1.8} />
         </span>
 
         <div className={styles.details}>
@@ -46,13 +44,10 @@ export function DailyChallengeCard({ challenge, onPlay }: DailyChallengeCardProp
       </div>
 
       <footer className={styles.footer}>
-        <div className={styles.reward}>
-          <span className={styles.rewardLabel}>Reward</span>
-          <span className={styles.rewardValue}>
-            <Star size={18} strokeWidth={1.8} fill="#f2c230" color="#f2c230" aria-hidden="true" />
-            {challenge.reward.amount} {challenge.reward.type}
-          </span>
-        </div>
+        <span className={styles.rewardValue}>
+          <Star size={14} strokeWidth={1.8} fill="#f2c230" color="#f2c230" aria-hidden="true" />
+          {challenge.reward.amount} {challenge.reward.type}
+        </span>
 
         <button
           type="button"

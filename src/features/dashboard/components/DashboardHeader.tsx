@@ -63,14 +63,14 @@ export function DashboardHeader({ profile, search, onSelectResult }: DashboardHe
       <div className={styles.searchArea}>
         <div className={styles.searchWrap}>
           <label className={styles.srOnly} htmlFor={inputId}>
-            Search products and categories
+            Search games and adventures
           </label>
           <input
             id={inputId}
             ref={inputRef}
             type="search"
             className={styles.searchInput}
-            placeholder="Search products and categories"
+            placeholder="Search games, adventures..."
             value={search.query}
             onChange={(event) => {
               search.setQuery(event.target.value);

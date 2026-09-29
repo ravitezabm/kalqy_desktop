@@ -1,16 +1,28 @@
 import { Play } from "lucide-react";
-import heroArtwork from "../../../assets/dashboard/hero-world.webp";
+import heroBanner from "../../../assets/dashboard/hero-banner.webp";
 import styles from "./HeroBanner.module.css";
 
 interface HeroBannerProps {
   onExplore: () => void;
 }
 
+/**
+ * The banner artwork is used as-is (see the supplied PNG) — no part of the
+ * headline/CTA is baked into the image, it's all a real HTML overlay so it
+ * stays readable, translatable and responsive.
+ */
 export function HeroBanner({ onExplore }: HeroBannerProps) {
   return (
     <section className={styles.hero}>
+      <img className={styles.artwork} src={heroBanner} alt="" fetchPriority="high" decoding="async" />
+      <span className={styles.scrim} aria-hidden="true" />
+
       <div className={styles.copy}>
-        <h2 className={styles.title}>Level up your skills!</h2>
+        <h2 className={styles.title}>
+          Level up your
+          <br />
+          skills!
+        </h2>
         <p className={styles.text}>
           Play fun games, learn new things
           <br />
@@ -21,8 +33,6 @@ export function HeroBanner({ onExplore }: HeroBannerProps) {
           Explore Games
         </button>
       </div>
-
-      <img className={styles.artwork} src={heroArtwork} alt="" />
     </section>
   );
 }

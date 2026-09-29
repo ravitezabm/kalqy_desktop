@@ -1,12 +1,15 @@
 .page {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 26px;
-  padding: 30px 36px 40px;
+  padding: 30px 36px 96px;
   min-height: 100%;
 }
 
 .sections {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 26px;
@@ -39,6 +42,8 @@
 }
 
 .errorState {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;

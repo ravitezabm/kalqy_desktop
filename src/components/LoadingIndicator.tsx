@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import styles from "./LoadingIndicator.module.css";
 
 interface LoadingIndicatorProps {
@@ -7,23 +7,32 @@ interface LoadingIndicatorProps {
   delay?: number;
 }
 
+/**
+ * The spin here is a functional status signal ("something is happening"),
+ * not decorative motion — so it's exempted from the app-wide
+ * reducedMotion="user" setting (App.tsx), which would otherwise strip the
+ * rotate transform whenever the OS's Reduce Motion preference is on and
+ * leave the ring looking permanently frozen instead of just calmer.
+ */
 export function LoadingIndicator({ size = 28, color = "var(--color-yellow)", delay = 0.4 }: LoadingIndicatorProps) {
   return (
-    <motion.div
-      className={styles.ring}
-      style={{ width: size, height: size, borderTopColor: color, borderRightColor: color }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, rotate: 360 }}
-      transition={{
-        opacity: { duration: 0.5, delay },
-        rotate: {
-          duration: 1.1,
-          repeat: Infinity,
-          ease: "linear",
-        },
-      }}
-      role="status"
-      aria-label="Loading"
-    />
+    <MotionConfig reducedMotion="never">
+      <motion.div
+        className={styles.ring}
+        style={{ width: size, height: size, borderTopColor: color, borderRightColor: color }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, rotate: 360 }}
+        transition={{
+          opacity: { duration: 0.5, delay },
+          rotate: {
+            duration: 1.1,
+            repeat: Infinity,
+            ease: "linear",
+          },
+        }}
+        role="status"
+        aria-label="Loading"
+      />
+    </MotionConfig>
   );
 }

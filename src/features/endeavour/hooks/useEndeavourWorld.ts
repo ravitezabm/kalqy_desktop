@@ -1,6 +1,23 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { endeavourRepository } from "../services";
+import { LocalStorageAdapter } from "../../../engine/persistence/StorageAdapter";
 import type { Adventure, AdventureCompletionResult, EndeavourWorld } from "../types/endeavour";
+
+const storage = new LocalStorageAdapter();
+
+/**
+ * Islands that became playable since the child last looked at the map (e.g.
+ * after finishing a game elsewhere). The first-ever visit just records the
+ * baseline so nothing is celebrated for what was already open.
+ */
+function findNewlyUnlocked(profileId: string, adventures: Adventure[]): string | null {
+  const key = `kalqy.endeavour.seen.${profileId}`;
+  const seen = storage.get<string[]>(key);
+  const unlocked = adventures.filter((a) => a.status !== "locked").map((a) => a.id);
+  storage.set(key, unlocked);
+  if (!seen) return null;
+  return unlocked.find((id) => !seen.includes(id)) ?? null;
+}
 
 export type EndeavourStatus = "loading" | "ready" | "error";
 
@@ -32,6 +49,7 @@ export function useEndeavourWorld(profileId: string | null) {
       if (requestId !== requestIdRef.current) return;
       setWorld(response.world);
       setAdventures(response.adventures);
+      setJustUnlockedId(findNewlyUnlocked(profileId, response.adventures));
       setStatus("ready");
     } catch {
       if (requestId !== requestIdRef.current) return;

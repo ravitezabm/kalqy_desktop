@@ -1,11 +1,11 @@
 import type { Game } from "../types/game";
-import butterflyMeadow from "../../../assets/games/butterfly-meadow.svg";
+import butterflyMeadow from "../../../assets/games/butterfly-meadow.webp";
 import riverRescue from "../../../assets/games/river-rescue.svg";
-import wordEggs from "../../../assets/games/word-eggs.svg";
+import wordEggs from "../../../assets/games/word-eggs.webp";
 import marketDay from "../../../assets/games/market-day.svg";
-import tablaFestival from "../../../assets/games/tabla-festival.svg";
+import tablaFestival from "../../../assets/games/tabla-festival.webp";
 import animalHomes from "../../../assets/games/animal-homes.svg";
-import rainbowCave from "../../../assets/games/rainbow-cave.svg";
+import rainbowCave from "../../../assets/games/rainbow-cave.webp";
 import forestPicnic from "../../../assets/games/forest-picnic.svg";
 
 /**

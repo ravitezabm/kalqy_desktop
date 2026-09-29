@@ -8,6 +8,8 @@ export interface SectionConfig {
   /** Route param to surface in the subtitle (e.g. which game was opened). */
   paramKey?: string;
   paramLabel?: string;
+  /** When set, renders a real mailto: link instead of just the back button. */
+  contactEmail?: string;
 }
 
 /**
@@ -39,7 +41,8 @@ export const SECTIONS: SectionConfig[] = [
   {
     path: "/support",
     title: "Support",
-    description: "Help articles and a way to reach the Kalqy team.",
+    description: "Help articles are coming soon. In the meantime, write to us directly:",
     icon: LifeBuoy,
+    contactEmail: "support@kalqy.in",
   },
 ];

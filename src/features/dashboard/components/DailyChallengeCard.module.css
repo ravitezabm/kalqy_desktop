@@ -1,63 +1,53 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  justify-content: space-between;
   height: 100%;
-  padding: 22px;
-  background: #fffaf0;
-  border: 1px solid #f6e6c8;
-  border-radius: 20px;
+  min-height: 0;
+  gap: 4%;
 }
 
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.title {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--onboarding-text);
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .timer {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 4px;
+  padding: 3px 8px;
   border-radius: var(--radius-pill);
-  background: #fdf0d5;
+  background: rgba(217, 164, 65, 0.16);
   color: #a8791f;
-  font-size: 12px;
+  font-size: clamp(9px, 0.9vw, 11px);
   font-weight: 700;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .timer[data-expired="true"] {
-  background: #fbe3e3;
+  background: rgba(192, 57, 43, 0.14);
   color: #c0392b;
 }
 
 .body {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 16px;
+  align-items: center;
+  gap: 8px;
+  min-height: 0;
 }
 
 .trophy {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: #fdf3d8;
+  width: clamp(24px, 3vw, 32px);
+  height: clamp(24px, 3vw, 32px);
+  border-radius: 10px;
+  background: rgba(217, 164, 65, 0.18);
   color: #d9a441;
   flex-shrink: 0;
 }
@@ -68,24 +58,28 @@
 }
 
 .goal {
-  margin: 0 0 12px;
-  font-size: 14px;
+  margin: 0 0 5px;
+  font-size: clamp(10px, 1vw, 12px);
   font-weight: 700;
-  line-height: 1.4;
-  color: var(--onboarding-text);
+  line-height: 1.25;
+  color: #4a3510;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .progressRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
 .progressTrack {
   flex: 1;
-  height: 7px;
+  height: 5px;
   border-radius: var(--radius-pill);
-  background: #efeff3;
+  background: rgba(74, 53, 16, 0.14);
   overflow: hidden;
 }
 
@@ -98,50 +92,40 @@
 }
 
 .progressValue {
-  font-size: 12px;
+  font-size: clamp(9px, 0.85vw, 10.5px);
   font-weight: 600;
-  color: var(--onboarding-muted);
+  color: #7c6a44;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  margin-top: auto;
-  flex-wrap: wrap;
-}
-
-.reward {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.rewardLabel {
-  font-size: 12px;
-  color: var(--onboarding-muted);
+  gap: 8px;
 }
 
 .rewardValue {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-size: 14px;
+  gap: 5px;
+  font-size: clamp(10px, 1vw, 12px);
   font-weight: 700;
-  color: var(--onboarding-text);
+  color: #4a3510;
+  white-space: nowrap;
 }
 
 .playButton {
-  padding: 12px 24px;
+  padding: clamp(6px, 0.9vw, 10px) clamp(12px, 1.6vw, 18px);
   border: none;
-  border-radius: 14px;
+  border-radius: var(--radius-pill);
   background: var(--onboarding-purple);
   color: #ffffff;
   font-family: inherit;
-  font-size: 14px;
+  font-size: clamp(10px, 1vw, 12.5px);
   font-weight: 700;
+  white-space: nowrap;
   cursor: pointer;
   transition: transform 0.15s ease, background-color 0.15s ease;
 }

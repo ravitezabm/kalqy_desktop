@@ -16,6 +16,9 @@
 
   --font-family-base: "Baloo 2", "Nunito", -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
+  /* Home hero headline only — see fonts.css. Falls back to the base font
+     until the woff2 loads (font-display: swap) or if it fails to load. */
+  --font-hero: "Ewofi", var(--font-family-base);
 
   --space-xs: 8px;
   --space-sm: 16px;

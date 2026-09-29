@@ -1,0 +1,44 @@
+.board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 673 / 441;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.plankTitle {
+  position: absolute;
+  top: 19%;
+  left: 12%;
+  width: 40%;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: clamp(11px, 2.6vw, 18px);
+  line-height: 1.15;
+  font-weight: 800;
+  color: #4a3510;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content {
+  position: absolute;
+  /* Measured against the board artwork's own pixels: the plain cream border
+     (right of the plank) starts around 18-20% of the frame's height, and
+     the cream area's edges sit ~10-12% in from each side. */
+  inset: 22% 12% 12% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 0;
+}

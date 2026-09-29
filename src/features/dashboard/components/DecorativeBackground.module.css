@@ -1,0 +1,75 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.cream {
+  top: -160px;
+  right: -100px;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(253, 240, 214, 0.95) 0%, rgba(253, 236, 200, 0.4) 45%, rgba(253, 240, 214, 0) 72%);
+}
+
+.peach {
+  top: -40px;
+  left: 12%;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(250, 214, 182, 0.65) 0%, rgba(250, 214, 182, 0) 70%);
+}
+
+.blue {
+  bottom: 6%;
+  right: -40px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(199, 231, 250, 0.62) 0%, rgba(199, 231, 250, 0) 70%);
+}
+
+.mint {
+  bottom: 2%;
+  left: -100px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(206, 240, 216, 0.6) 0%, rgba(206, 240, 216, 0) 70%);
+}
+
+.rightMint {
+  top: 4%;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(206, 240, 216, 0.5) 0%, rgba(206, 240, 216, 0) 72%);
+}
+
+.yellowOval {
+  top: 6%;
+  left: 44%;
+  width: 100px;
+  height: 62px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 194, 48, 0.32) 0%, rgba(242, 194, 48, 0) 72%);
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(236, 30, 121, 0.14);
+}
+
+.leaf {
+  position: absolute;
+  width: 20px;
+  height: 34px;
+  border-radius: 50% 50% 50% 4%;
+  background: rgba(124, 185, 40, 0.16);
+}

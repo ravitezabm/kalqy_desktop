@@ -1,0 +1,29 @@
+.panel {
+  position: absolute;
+  left: 50%;
+  bottom: 96px;
+  z-index: 20;
+  transform: translateX(-50%);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #b6ffb0;
+  font: 12px/1.5 ui-monospace, Menlo, monospace;
+  white-space: pre;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.actions button {
+  padding: 4px 10px;
+  border: 1px solid #b6ffb0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}

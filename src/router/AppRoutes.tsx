@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { SplashPage } from "../pages/SplashPage";
@@ -18,6 +19,9 @@ import { SettingsPage } from "../pages/SettingsPage";
 import { SectionPlaceholderPage } from "../pages/SectionPlaceholderPage";
 import { SECTIONS } from "../pages/sections";
 import { PageTransition } from "../animations/PageTransition";
+
+// Phaser + MediaPipe are heavy; only load them when a game actually opens.
+const ButterflyPage = lazy(() => import("../pages/ButterflyPage").then((m) => ({ default: m.ButterflyPage })));
 
 export function AppRoutes() {
   const location = useLocation();
@@ -126,6 +130,16 @@ export function AppRoutes() {
           element={
             <PageTransition>
               <GamesPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/games/butterfly-meadow"
+          element={
+            <PageTransition>
+              <Suspense fallback={null}>
+                <ButterflyPage />
+              </Suspense>
             </PageTransition>
           }
         />

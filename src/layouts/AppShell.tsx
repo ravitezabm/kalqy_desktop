@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { Home, Palmtree, Puzzle, Bell, Settings, LifeBuoy, ChevronRight } from "lucide-react";
+import { Home, Palmtree, Puzzle, Settings, LifeBuoy, ChevronRight } from "lucide-react";
 import { KalqyLogo } from "../components/KalqyLogo";
+import sidebarEnvironment from "../assets/dashboard/sidebar-environment.webp";
 import type { Profile } from "../types/profile";
 import styles from "./AppShell.module.css";
 
@@ -20,7 +21,6 @@ const PRIMARY_NAV: NavItem[] = [
 ];
 
 const SECONDARY_NAV: NavItem[] = [
-  { to: "/notifications", label: "Notifications", icon: Bell },
   { to: "/settings", label: "Settings", icon: Settings },
   { to: "/support", label: "Support", icon: LifeBuoy },
 ];
@@ -28,10 +28,17 @@ const SECONDARY_NAV: NavItem[] = [
 interface AppShellProps {
   children: ReactNode;
   profile: Profile | null;
-  unreadNotifications?: number;
+  /**
+   * Rendered as a sibling of the scrollable content area, outside the
+   * page-transition wrapper — so `position: fixed` inside it truly stays
+   * pinned to the viewport instead of scrolling with the page (a `transform`
+   * on an ancestor, which PageTransition sets for its enter/exit animation,
+   * would otherwise become the containing block for `fixed` descendants).
+   */
+  bottomDecoration?: ReactNode;
 }
 
-export function AppShell({ children, profile, unreadNotifications = 0 }: AppShellProps) {
+export function AppShell({ children, profile, bottomDecoration }: AppShellProps) {
   const navigate = useNavigate();
   const reduceMotion = Boolean(useReducedMotion());
 
@@ -43,14 +50,8 @@ export function AppShell({ children, profile, unreadNotifications = 0 }: AppShel
     >
       <span className={styles.navIcon}>
         <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
-        {label === "Notifications" && unreadNotifications > 0 && (
-          <span className={styles.unreadDot} aria-hidden="true" />
-        )}
       </span>
       <span className={styles.navLabel}>{label}</span>
-      {label === "Notifications" && unreadNotifications > 0 && (
-        <span className={styles.srOnly}>{unreadNotifications} unread</span>
-      )}
     </NavLink>
   );
 
@@ -70,6 +71,8 @@ export function AppShell({ children, profile, unreadNotifications = 0 }: AppShel
           <div className={styles.navGroup}>{PRIMARY_NAV.map(renderNavItem)}</div>
           <div className={styles.navGroup}>{SECONDARY_NAV.map(renderNavItem)}</div>
         </nav>
+
+        <img className={styles.sidebarArtwork} src={sidebarEnvironment} alt="" aria-hidden="true" />
 
         <button
           type="button"
@@ -91,6 +94,8 @@ export function AppShell({ children, profile, unreadNotifications = 0 }: AppShel
       </motion.aside>
 
       <main className={styles.content}>{children}</main>
+
+      {bottomDecoration}
     </div>
   );
 }
