@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  min-height: var(--app-vh, 100vh);
   overflow-y: auto;
   background: #ffffff;
   padding-top: 112px;

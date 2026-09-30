@@ -1,4 +1,11 @@
-import { FilesetResolver, HandLandmarker, type HandLandmarkerResult, type NormalizedLandmark } from "@mediapipe/tasks-vision";
+import {
+  FilesetResolver,
+  HandLandmarker,
+  PoseLandmarker,
+  type HandLandmarkerResult,
+  type NormalizedLandmark,
+  type PoseLandmarkerResult,
+} from "@mediapipe/tasks-vision";
 import type { MotionProvider } from "../MotionProvider";
 import type { MotionConfig } from "../MotionConfig";
 import type { TrackingSnapshot } from "../state/TrackingSnapshot";
@@ -6,8 +13,10 @@ import type { TrackingState } from "../state/TrackingState";
 import type { HandState, Handedness, Point2D } from "../hand/HandState";
 import { NO_HAND } from "../hand/HandState";
 import { HAND_LANDMARK_INDEX, type HandLandmarkName } from "../hand/HandLandmarks";
+import { GestureTracker, readGesture } from "../hand/HandGesture";
 import { OneEuroFilter2D } from "../smoothing/OneEuroFilter";
 import { mirrorPoint } from "../normalization/CoordinateMapper";
+import { BodyAnalyzer } from "../body/BodyAnalyzer";
 import { CameraManager, CameraError } from "../camera/CameraManager";
 
 const LOST_AFTER_MS = 500;
@@ -18,6 +27,8 @@ interface TrackedHand {
   position: Point2D;
   velocity: Point2D;
   rawLandmarks: NormalizedLandmark[];
+  gestures: GestureTracker;
+  closure: number;
   lastSeenAt: number;
   lastTimestamp: number;
 }
@@ -30,6 +41,9 @@ interface TrackedHand {
  */
 export class MediaPipeMotionProvider implements MotionProvider {
   private landmarker: HandLandmarker | null = null;
+  private poseLandmarker: PoseLandmarker | null = null;
+  private body = new BodyAnalyzer();
+  private lastBodyAt = 0;
   private camera = new CameraManager();
   private rafId: number | null = null;
   private state: TrackingState = "initializing";
@@ -43,20 +57,40 @@ export class MediaPipeMotionProvider implements MotionProvider {
 
   async initialize(config: MotionConfig): Promise<void> {
     this.state = "initializing";
+    this.body = new BodyAnalyzer(config.body);
     const fileset = await FilesetResolver.forVisionTasks(config.assets.wasmBasePath);
-    this.landmarker = await HandLandmarker.createFromOptions(fileset, {
-      baseOptions: {
-        modelAssetPath: config.assets.handLandmarkerModelPath,
-        delegate: "GPU",
-      },
-      runningMode: "VIDEO",
-      numHands: config.profile.hands,
-    });
+
+    // Only the trackers the profile asks for are created — a body-only game
+    // never pays for the hand model, and vice versa.
+    if (config.profile.hands > 0) {
+      this.landmarker = await HandLandmarker.createFromOptions(fileset, {
+        baseOptions: { modelAssetPath: config.assets.handLandmarkerModelPath, delegate: "GPU" },
+        runningMode: "VIDEO",
+        numHands: config.profile.hands,
+      });
+    }
+    if (config.profile.body) {
+      const modelPath = config.assets.poseLandmarkerModelPath;
+      if (!modelPath) throw new Error("BODY tracking needs assets.poseLandmarkerModelPath");
+      const options = { runningMode: "VIDEO" as const, numPoses: 1 };
+      try {
+        this.poseLandmarker = await PoseLandmarker.createFromOptions(fileset, {
+          ...options,
+          baseOptions: { modelAssetPath: modelPath, delegate: "GPU" },
+        });
+      } catch {
+        // No usable GPU delegate (some Windows drivers): the CPU path still works.
+        this.poseLandmarker = await PoseLandmarker.createFromOptions(fileset, {
+          ...options,
+          baseOptions: { modelAssetPath: modelPath, delegate: "CPU" },
+        });
+      }
+    }
     this.state = "ready";
   }
 
   async start(): Promise<void> {
-    if (!this.landmarker) throw new Error("MediaPipeMotionProvider.start() called before initialize()");
+    if (!this.landmarker && !this.poseLandmarker) throw new Error("MediaPipeMotionProvider.start() called before initialize()");
 
     try {
       await this.camera.start();
@@ -95,6 +129,8 @@ export class MediaPipeMotionProvider implements MotionProvider {
     this.stop();
     this.landmarker?.close();
     this.landmarker = null;
+    this.poseLandmarker?.close();
+    this.poseLandmarker = null;
   }
 
   getSnapshot(): TrackingSnapshot {
@@ -107,22 +143,25 @@ export class MediaPipeMotionProvider implements MotionProvider {
       quality: {
         overall: primary.confidence,
         hand: primary.confidence,
+        body: this.body.state().confidence,
         fps: this.fps,
         latencyMs: this.latencyMs,
       },
       primaryHand: primary,
       leftHand: left,
       rightHand: right,
+      body: this.body.state(),
     };
   }
 
   private loop = (): void => {
     this.rafId = requestAnimationFrame(this.loop);
     const video = this.camera.video;
-    if (!video || !this.landmarker || video.readyState < 2) return;
+    if (!video || video.readyState < 2) return;
 
     const captureStart = performance.now();
-    const result = this.landmarker.detectForVideo(video, captureStart);
+    if (this.landmarker) this.applyResult(this.landmarker.detectForVideo(video, captureStart), captureStart);
+    if (this.poseLandmarker) this.applyPose(this.poseLandmarker.detectForVideo(video, captureStart), captureStart);
     this.latencyMs = performance.now() - captureStart;
 
     if (this.lastFrameAt > 0) {
@@ -130,16 +169,26 @@ export class MediaPipeMotionProvider implements MotionProvider {
       if (dt > 0) this.fps = this.fps === 0 ? 1000 / dt : this.fps * 0.9 + (1000 / dt) * 0.1;
     }
     this.lastFrameAt = captureStart;
-
-    this.applyResult(result, captureStart);
   };
+
+  private applyPose(result: PoseLandmarkerResult, now: number): void {
+    const landmarks = result.landmarks[0];
+    const dt = this.lastBodyAt > 0 ? (now - this.lastBodyAt) / 1000 : 1 / 30;
+    this.lastBodyAt = now;
+    this.body.update(
+      landmarks ? landmarks.map((l) => ({ ...mirrorPoint({ x: l.x, y: l.y }), visibility: l.visibility ?? 0 })) : null,
+      dt
+    );
+  }
 
   private applyResult(result: HandLandmarkerResult, now: number): void {
     const seenThisFrame = new Set<Handedness>();
 
     result.landmarks.forEach((landmarks, index) => {
       const categoryName = result.handednesses[index]?.[0]?.categoryName?.toLowerCase();
-      const handedness: Handedness = categoryName === "left" ? "left" : "right";
+      // MediaPipe labels hands as if the image were already mirrored (a selfie view). Our camera frames are
+      // raw, so its "Left" is the child's RIGHT hand — swap so "left" always means the child's left hand.
+      const handedness: Handedness = categoryName === "left" ? "right" : "left";
       const confidence = result.handednesses[index]?.[0]?.score ?? 0;
       seenThisFrame.add(handedness);
 
@@ -151,6 +200,8 @@ export class MediaPipeMotionProvider implements MotionProvider {
           position: { x: 0.5, y: 0.5 },
           velocity: { x: 0, y: 0 },
           rawLandmarks: landmarks,
+          gestures: new GestureTracker(),
+          closure: 0,
           lastSeenAt: now,
           lastTimestamp: now,
         };
@@ -167,6 +218,12 @@ export class MediaPipeMotionProvider implements MotionProvider {
       };
       tracked.position = smoothed;
       tracked.rawLandmarks = landmarks;
+      const reading = readGesture((name) => {
+        const raw = landmarks[HAND_LANDMARK_INDEX[name]];
+        return { x: raw.x, y: raw.y };
+      });
+      tracked.closure = reading.closure;
+      tracked.gestures.update(reading);
       tracked.confidence = confidence;
       tracked.lastTimestamp = now;
       tracked.lastSeenAt = now;
@@ -196,6 +253,8 @@ export class MediaPipeMotionProvider implements MotionProvider {
       velocity: tracked.velocity,
       speed: Math.hypot(tracked.velocity.x, tracked.velocity.y),
       direction: Math.atan2(tracked.velocity.y, tracked.velocity.x),
+      gesture: tracked.gestures.gesture,
+      closure: tracked.closure,
       landmark,
     };
   }

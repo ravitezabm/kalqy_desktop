@@ -5,8 +5,14 @@ import { useEffect } from "react";
  * toggle. Silently no-ops outside a Tauri window (e.g. a plain browser tab)
  * rather than throwing.
  */
+let hasBeenFullscreen = false;
+
 export function useFullscreenSync(fullscreen: boolean) {
   useEffect(() => {
+    // The window already starts windowed; forcing setFullscreen(false) on mount
+    // only makes the native window re-layout (visible flash on Windows).
+    if (!fullscreen && !hasBeenFullscreen) return;
+    if (fullscreen) hasBeenFullscreen = true;
     let cancelled = false;
 
     (async () => {

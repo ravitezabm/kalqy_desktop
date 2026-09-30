@@ -1,5 +1,6 @@
 import { MotionConfig } from "framer-motion";
 import { HashRouter } from "react-router-dom";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { AppRoutes } from "./router/AppRoutes";
 import { AuthProvider } from "./context/AuthContext";
 import { OnboardingProvider } from "./context/OnboardingContext";
@@ -20,7 +21,7 @@ function AppEffects({ children }: { children: React.ReactNode }) {
           largerUI
             ? // WebKit-only, but Tauri's macOS/Windows webviews are WebKit-based,
               // so this genuinely scales the whole app rather than only text.
-              ({ zoom: 1.15 } as React.CSSProperties)
+              ({ zoom: 1.15, "--app-vh": "calc(100vh / 1.15)" } as React.CSSProperties)
             : undefined
         }
       >
@@ -37,7 +38,9 @@ function App() {
         <SettingsProvider>
           <AppEffects>
             <HashRouter>
-              <AppRoutes />
+              <ErrorBoundary>
+                <AppRoutes />
+              </ErrorBoundary>
             </HashRouter>
           </AppEffects>
         </SettingsProvider>

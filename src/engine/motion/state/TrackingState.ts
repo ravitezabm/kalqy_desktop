@@ -12,6 +12,7 @@ export type TrackingState =
 export interface TrackingQuality {
   overall: number;
   hand: number;
+  body: number;
   fps: number;
   latencyMs: number;
 }

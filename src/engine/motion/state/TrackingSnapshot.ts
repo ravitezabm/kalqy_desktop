@@ -1,4 +1,5 @@
 import type { HandState } from "../hand/HandState";
+import type { BodyState } from "../body/BodyState";
 import type { TrackingQuality, TrackingState } from "./TrackingState";
 
 export interface TrackingSnapshot {
@@ -7,4 +8,5 @@ export interface TrackingSnapshot {
   primaryHand: HandState;
   leftHand: HandState;
   rightHand: HandState;
+  body: BodyState;
 }

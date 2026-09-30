@@ -2,7 +2,7 @@
   --stage-offset: 140px;
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: var(--app-vh, 100vh);
   overflow: hidden;
   background: #ffffff;
 }
@@ -51,7 +51,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  height: calc(100vh - var(--stage-offset));
+  height: calc(var(--app-vh, 100vh) - var(--stage-offset));
   min-height: 520px;
   /* Lets the orbit run off the bottom edge instead of shrinking to fit. */
   overflow: hidden;
@@ -62,7 +62,7 @@
    and anchored low, so the bottom of the ring is cropped by the window —
    the outer profiles only occupy the top arc, so nobody is cut off. */
 .orbitField {
-  --field-size: min(calc((100vh - var(--stage-offset)) * 1.18), 94vw);
+  --field-size: min(calc((var(--app-vh, 100vh) - var(--stage-offset)) * 1.18), 94vw);
   position: absolute;
   left: 50%;
   top: 64%;

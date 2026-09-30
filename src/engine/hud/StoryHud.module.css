@@ -1,0 +1,273 @@
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #ffffff;
+}
+
+.hud > * {
+  /* One knob for HUD size; children keep their own layout. */
+  zoom: 1.25;
+}
+
+.panel {
+  position: absolute;
+  padding: 10px 18px;
+  border-radius: 18px;
+  background: rgba(20, 40, 30, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.player {
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.playerText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.playerName {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.instruction {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+  max-width: 28%;
+}
+
+.instruction strong {
+  font-size: 18px;
+}
+
+.instruction span {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.topRight {
+  zoom: 1.1;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.metric {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric strong {
+  font-size: 22px;
+}
+
+.exit {
+  pointer-events: auto;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: #e5484d;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pause {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: rgba(20, 40, 30, 0.55);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.pause:focus-visible,
+.exit:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.goals {
+  top: 108px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 190px;
+}
+
+.goalsTitle {
+  text-align: center;
+  font-size: 15px;
+}
+
+.goal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.goalIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.goalText {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.goalText strong {
+  font-size: 18px;
+}
+
+.tip {
+  bottom: 20px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 210px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.tipTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.trackWrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+}
+
+.markStar {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hold {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 320px;
+  font-weight: 700;
+}
+
+.track {
+  display: block;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2dd4bf, #ffd166);
+}
+
+.goalImage {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+/* Picture of what to collect — readable before a child can read the words. */
+.targets {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 4px;
+}
+
+.targetChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 8px 1px 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: opacity 0.2s ease;
+}
+
+.targetChip img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+.targetChip b {
+  font-size: 18px;
+  color: #fff;
+}
+
+.targetDone {
+  opacity: 0.6;
+}

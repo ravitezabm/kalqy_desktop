@@ -12,6 +12,12 @@ export interface GameProgress {
   timeRemainingSeconds: number;
   levelId: string;
   levelTitle: string;
+  /** Optional top-center HUD text a game supplies itself. */
+  headline?: string;
+  /** False for untimed levels (e.g. training) — the HUD shows -- instead of a countdown. */
+  timed?: boolean;
+  /** True for guided tutorials — the HUD hides the goals and tip so the lesson has a clean screen. */
+  tutorial?: boolean;
   levelIndex: number;
   totalLevels: number;
   hint: string;
@@ -20,6 +26,8 @@ export interface GameProgress {
   stars: number;
   /** Short encouraging message (never a punishment), or null. */
   feedback: string | null;
+  /** Level-specific goal rows (e.g. "Apples 3/5"); when present the HUD shows these instead of the daily goals. */
+  goals?: { id: string; label: string; value: number; target: number; image?: string }[];
   /** True until the first hand is seen on this level; the timer doesn't run yet. */
   waitingForHand: boolean;
 }

@@ -1,4 +1,5 @@
 import type { HandLandmarkName } from "./HandLandmarks";
+import type { HandGesture } from "./HandGesture";
 
 export interface Point2D {
   x: number;
@@ -25,6 +26,11 @@ export interface HandState {
   /** Radians, 0 = pointing right. Direction of current velocity. */
   direction: number;
 
+  /** Stable (hysteresis + confirmation) open / pinch / fist. */
+  gesture: HandGesture;
+  /** 0 open .. 1 fist. */
+  closure: number;
+
   landmark(name: HandLandmarkName): Point2D;
 }
 
@@ -36,5 +42,7 @@ export const NO_HAND: HandState = {
   velocity: { x: 0, y: 0 },
   speed: 0,
   direction: 0,
+  gesture: "open",
+  closure: 0,
   landmark: () => ({ x: 0.5, y: 0.5 }),
 };

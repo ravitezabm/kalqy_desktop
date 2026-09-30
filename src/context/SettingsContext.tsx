@@ -1,4 +1,5 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { LocalStorageAdapter } from "../engine/persistence/StorageAdapter";
 import type { ReactNode } from "react";
 
 export type GraphicsQuality = "low" | "medium" | "high";
@@ -29,10 +30,17 @@ const initialState: SettingsState = {
   largerUI: false,
 };
 
+const storage = new LocalStorageAdapter();
+const STORAGE_KEY = "kalqy.settings";
+
 const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<SettingsState>(initialState);
+  const [state, setState] = useState<SettingsState>(() => ({ ...initialState, ...storage.get<Partial<SettingsState>>(STORAGE_KEY) }));
+
+  useEffect(() => {
+    storage.set(STORAGE_KEY, state);
+  }, [state]);
 
   const value = useMemo<SettingsContextValue>(
     () => ({

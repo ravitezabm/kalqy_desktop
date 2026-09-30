@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { BUTTERFLY_ASSETS, type AtlasId } from "./assets";
 import { BUTTERFLY_LEVELS, FLOWER_COLORS, type FlowerColorId } from "./config/levels.config";
 import { createEffectTextures } from "./effects";
+import { createAtlasAnimation } from "../../engine/assets/atlasAnimations";
 import { createTintedAtlas, createTintedTexture } from "../../engine/vfx/tintTexture";
 
 export const PRELOAD_SCENE_KEY = "ButterflyPreload";
@@ -52,7 +53,7 @@ export class ButterflyPreloadScene extends Phaser.Scene {
 
   create(): void {
     createEffectTextures(this.textures);
-    for (const { key, atlas, loop } of KID_ANIMATIONS) this.createAnimation(key, atlas, atlas, loop);
+    for (const { key, atlas, loop } of KID_ANIMATIONS) createAtlasAnimation(this, key, atlas, `${atlas}-data`, loop);
 
     (Object.keys(FLOWER_COLORS) as FlowerColorId[]).forEach((colorId) =>
       createTintedTexture(this.textures, "flower", FLOWER_COLORS[colorId], `flower-${colorId}`, PETAL_TINT)
@@ -62,22 +63,9 @@ export class ButterflyPreloadScene extends Phaser.Scene {
     const butterflyColors = new Set(BUTTERFLY_LEVELS.map((level) => level.butterfly.colorId));
     butterflyColors.forEach((colorId) => {
       const key = createTintedAtlas(this.textures, "butterfly", FLOWER_COLORS[colorId], `butterfly-${colorId}`, WING_TINT);
-      this.createAnimation(`butterfly-fly-${colorId}`, "butterfly", key, true);
+      createAtlasAnimation(this, `butterfly-fly-${colorId}`, key, "butterfly-data", true);
     });
 
     this.scene.start("ButterflyGame");
-  }
-
-  /** `durationsAtlas` names the atlas whose JSON holds the frame durations. */
-  private createAnimation(key: string, durationsAtlas: AtlasId, textureKey: string, loop: boolean): void {
-    const frames = this.textures.get(textureKey).getFrameNames().sort();
-    const data = this.cache.json.get(`${durationsAtlas}-data`) as { frames: Record<string, { duration?: number }> };
-    const frameDuration = data.frames[frames[0]]?.duration ?? 100;
-    this.anims.create({
-      key,
-      frames: frames.map((frame) => ({ key: textureKey, frame })),
-      frameRate: 1000 / frameDuration,
-      repeat: loop ? -1 : 0,
-    });
   }
 }

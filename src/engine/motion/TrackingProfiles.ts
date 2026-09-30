@@ -6,14 +6,14 @@ export interface TrackingProfile {
 }
 
 /**
- * Phase 1 only implements hand tracking, so only HAND_BASIC actually does
- * anything yet — BODY_MOTION/HAND_BODY etc. are deliberately not defined
- * here until the pose side of the engine exists (see PROMPT section 12;
- * we're not pretending to support profiles we can't back with real tracking).
+ * Each profile turns on only the trackers a game needs — River never
+ * spins up the hand model, Butterfly never spins up the pose model.
  */
 export const TRACKING_PROFILES = {
   HAND_BASIC: { id: "HAND_BASIC", hands: 1, body: false, gestures: false },
   HAND_PRECISE: { id: "HAND_PRECISE", hands: 2, body: false, gestures: false },
+  BODY_MOTION: { id: "BODY_MOTION", hands: 0, body: true, gestures: false },
+  HAND_BODY: { id: "HAND_BODY", hands: 2, body: true, gestures: false },
 } satisfies Record<string, TrackingProfile>;
 
 export type TrackingProfileId = keyof typeof TRACKING_PROFILES;

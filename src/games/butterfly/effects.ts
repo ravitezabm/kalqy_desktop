@@ -1,36 +1,6 @@
 import Phaser from "phaser";
 
-/** Soft textures shared by the shadows, trail and celebration — generated, no extra asset files. */
-export function createEffectTextures(textures: Phaser.Textures.TextureManager): void {
-  if (!textures.exists("shadow")) {
-    const tex = textures.createCanvas("shadow", 256, 96);
-    const ctx = tex!.getContext();
-    ctx.save();
-    ctx.translate(128, 48);
-    ctx.scale(1, 96 / 256);
-    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 128);
-    g.addColorStop(0, "rgba(0,0,0,0.55)");
-    g.addColorStop(0.6, "rgba(0,0,0,0.28)");
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(0, 0, 128, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-    tex!.refresh();
-  }
-  if (!textures.exists("spark")) {
-    const tex = textures.createCanvas("spark", 64, 64);
-    const ctx = tex!.getContext();
-    const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, "rgba(255,255,255,1)");
-    g.addColorStop(0.3, "rgba(255,255,255,0.7)");
-    g.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, 64, 64);
-    tex!.refresh();
-  }
-}
+export { createEffectTextures } from "../../engine/vfx/effectTextures";
 
 const CONFETTI_COLORS = [0xff4f4f, 0x00aeef, 0xffd166, 0xa855c9, 0x7cb928, 0xff9ecb];
 

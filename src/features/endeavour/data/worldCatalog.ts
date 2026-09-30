@@ -47,7 +47,7 @@ export const ADVENTURE_DEFINITIONS: AdventureDefinition[] = [
     islandImage: "/assets/world/islands/river-adventure.png",
     position: { x: 42, y: 27 },
     requiredAdventureId: "adventure_01",
-    route: "/games/river-rescue",
+    route: "/games/river-adventure",
     theme: { accent: "#2bb3c0" },
   },
   {
@@ -71,7 +71,7 @@ export const ADVENTURE_DEFINITIONS: AdventureDefinition[] = [
     islandImage: "/assets/world/islands/market-day.png",
     position: { x: 40, y: 68 },
     requiredAdventureId: "adventure_03",
-    route: "/games/market-day",
+    route: "/games/market-catch",
     theme: { accent: "#e8724a" },
   },
   {

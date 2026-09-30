@@ -7,10 +7,11 @@ import { ButterflyTrail } from "./entities/ButterflyTrail";
 import { playCelebration } from "./effects";
 import { FLOWER_COLORS } from "./config/levels.config";
 import { FlowerTarget } from "./entities/FlowerTarget";
-import { PlacementSystem } from "./systems/PlacementSystem";
+import { PlacementSystem } from "../../engine/mechanics/PlacementSystem";
 import { isMatch } from "./systems/MatchingSystem";
 import { analytics } from "../../features/games/services/analytics";
-import { validateLevel, type ButterflyLevelConfig } from "./config/levels.config";
+import { validateLevel, BUTTERFLY_LEVELS, type ButterflyLevelConfig } from "./config/levels.config";
+import type { StoryScene } from "../../engine/game/StoryGame";
 
 export const BUTTERFLY_GAME_ID = "butterfly-meadow";
 const KID_TARGET_HEIGHT = 330;
@@ -34,7 +35,7 @@ export interface LevelStart {
  * construction (no scene-lookup needed, so it can't race Phaser's boot).
  * One scene serves every level: `startLevel` swaps the targets/butterfly.
  */
-export class ButterflyGame extends Phaser.Scene {
+export class ButterflyGame extends Phaser.Scene implements StoryScene {
   private butterfly!: Butterfly;
   private kid!: Phaser.GameObjects.Sprite;
   private kidShadow!: Phaser.GameObjects.Image;
@@ -101,6 +102,10 @@ export class ButterflyGame extends Phaser.Scene {
     this.guide = this.add.graphics().setDepth(35);
 
     this.startLevel(this.initial);
+  }
+
+  startLevelAt(index: number): void {
+    this.startLevel({ config: BUTTERFLY_LEVELS[index], index, total: BUTTERFLY_LEVELS.length });
   }
 
   /** Loads a level (or reloads the same one for a retry). */

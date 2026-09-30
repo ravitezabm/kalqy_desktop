@@ -23,6 +23,11 @@ import { PageTransition } from "../animations/PageTransition";
 // Phaser + MediaPipe are heavy; only load them when a game actually opens.
 const ButterflyPage = lazy(() => import("../pages/ButterflyPage").then((m) => ({ default: m.ButterflyPage })));
 
+const MarketCatchPage = lazy(() => import("../pages/MarketCatchPage").then((m) => ({ default: m.MarketCatchPage })));
+const TablaRhythmPage = lazy(() => import("../pages/TablaRhythmPage").then((m) => ({ default: m.TablaRhythmPage })));
+const WordEggsPage = lazy(() => import("../pages/WordEggsPage").then((m) => ({ default: m.WordEggsPage })));
+const RiverPage = lazy(() => import("../pages/RiverPage").then((m) => ({ default: m.RiverPage })));
+
 export function AppRoutes() {
   const location = useLocation();
 
@@ -139,6 +144,46 @@ export function AppRoutes() {
             <PageTransition>
               <Suspense fallback={null}>
                 <ButterflyPage />
+              </Suspense>
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/games/word-eggs"
+          element={
+            <PageTransition>
+              <Suspense fallback={null}>
+                <WordEggsPage />
+              </Suspense>
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/games/tabla-festival"
+          element={
+            <PageTransition>
+              <Suspense fallback={null}>
+                <TablaRhythmPage />
+              </Suspense>
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/games/market-catch"
+          element={
+            <PageTransition>
+              <Suspense fallback={null}>
+                <MarketCatchPage />
+              </Suspense>
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/games/river-adventure"
+          element={
+            <PageTransition>
+              <Suspense fallback={null}>
+                <RiverPage />
               </Suspense>
             </PageTransition>
           }

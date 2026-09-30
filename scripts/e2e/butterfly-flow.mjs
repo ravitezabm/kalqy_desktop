@@ -1,0 +1,30 @@
+import puppeteer from "puppeteer-core";
+const b = await puppeteer.launch({ executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", headless: "new",
+  args: ["--use-fake-ui-for-media-stream","--use-fake-device-for-media-stream","--autoplay-policy=no-user-gesture-required","--enable-unsafe-swiftshader","--use-gl=angle","--use-angle=metal"],
+  defaultViewport: { width: 1280, height: 720 } });
+const p = await b.newPage();
+const errs=[]; p.on("pageerror", e => errs.push(e.message)); p.on("console", m => { if (m.type()==="error") errs.push(m.text()); });
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const text = () => p.evaluate(() => document.body.innerText.replace(/\s+/g," "));
+await p.goto("http://localhost:1420/#/games/butterfly-meadow?demo=1", { waitUntil: "load" });
+await p.evaluate(() => localStorage.clear());
+await sleep(12000);
+await p.evaluate(() => [...document.querySelectorAll("button")].find(b => /skip/i.test(b.textContent))?.click());
+await sleep(5000);
+await p.keyboard.press("Backquote"); await sleep(500); await p.evaluate(() => [...document.querySelectorAll("button")].find(b => /Skip level/.test(b.textContent))?.click());
+await sleep(800); await p.evaluate(() => [...document.querySelectorAll("button")].find(b => /Skip level/.test(b.textContent))?.click()); await sleep(1500); await p.evaluate(() => window.__kalqyMockHand.moveTo({x:0.5,y:0.3})); await sleep(1500); console.log((await text()).slice(0,150));
+await sleep(1500);
+const L = await p.evaluate(async () => (await import("/src/games/butterfly/config/levels.config.ts")).BUTTERFLY_LEVELS[2]);
+const head = t => ({ x: t.x, y: (t.y*720 - 340.1*t.scale)/720 });
+const wrong = L.targets.find(t => t.colorId !== L.butterfly.colorId), right = L.targets.find(t => t.colorId === L.butterfly.colorId);
+await p.evaluate(h => window.__kalqyMockHand.moveTo(h), head(wrong));
+await sleep(3300); await p.screenshot({ path: "wrong1.png" });
+console.log("wrong text:", (await text()).slice(0,200));
+await sleep(500); await p.screenshot({ path: "wrong2.png" });
+await p.evaluate(h => window.__kalqyMockHand.moveTo(h), head(right));
+await sleep(6500); await p.screenshot({ path: "win.png" });
+await sleep(3500);
+console.log("after win:", (await text()).slice(0,200));
+await p.screenshot({ path: "next.png" });
+console.log("errors", errs.slice(0,5));
+await b.close();

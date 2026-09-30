@@ -11,6 +11,11 @@ export type AnalyticsEvent =
   | { name: "level_started"; gameId: string; levelId: string }
   | { name: "correct_match"; gameId: string; levelId: string }
   | { name: "wrong_match"; gameId: string; levelId: string }
+  | { name: "option_picked"; gameId: string; levelId: string }
+  | { name: "option_dropped"; gameId: string; levelId: string }
+  | { name: "correct_answer"; gameId: string; levelId: string }
+  | { name: "incorrect_answer"; gameId: string; levelId: string }
+  | { name: "object_caught"; gameId: string; levelId: string; objectId: string; outcome: string }
   | { name: "level_completed"; gameId: string; levelId: string; stars: number; score: number }
   | { name: "level_failed"; gameId: string; levelId: string }
   | { name: "story_completed"; gameId: string }
